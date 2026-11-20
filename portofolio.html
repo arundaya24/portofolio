@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kalingga Arundaya Priatna | Portofolio</title>
+    <meta
+      name="description"
+      content="Portofolio Kalingga Arundaya Priatna, siswa PPLG yang belajar software engineering lewat membangun web, aplikasi desktop, dan sistem IoT."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <a class="brand" href="#top">kalingga.arundaya</a>
+        <nav aria-label="Navigasi utama">
+          <a href="#proyek">Proyek</a>
+          <a href="#pendekatan">Pendekatan</a>
+          <a href="#arah">Arah</a>
+          <a href="#kontak">Kontak</a>
+        </nav>
+      </div>
+      <div class="progress" id="progress"></div>
+    </header>
+
+    <main id="top">
+      <div class="hero">
+        <div class="hero-stage" aria-hidden="true">
+          <div class="orbit-fallback"></div>
+          <canvas id="scene"></canvas>
+        </div>
+        <div class="wrap hero-grid">
+          <span class="status mono" data-reveal
+            ><span class="dot"></span>aspiring software engineer</span
+          >
+          <h1 aria-label="Kalingga Arundaya Priatna">
+            <span class="line"><span style="--i: 0">Kalingga</span></span>
+            <span class="line"><span style="--i: 1">Arundaya</span></span>
+            <span class="line"><span style="--i: 2">Priatna</span></span>
+          </h1>
+          <p class="lead" data-reveal>
+            Siswa SMK jurusan Pengembangan Perangkat Lunak dan Gim. Saya belajar
+            software engineering dengan membangun: dari web dan aplikasi desktop
+            sampai sistem IoT berbasis Arduino.
+          </p>
+          <div class="actions" data-reveal style="--d: 80ms">
+            <div class="mag" data-magnetic>
+              <a class="btn btn-primary" href="#proyek">Lihat proyek</a>
+            </div>
+            <a class="btn" href="#pendekatan">Cara saya bekerja</a>
+          </div>
+          <dl class="meta" data-reveal style="--d: 160ms">
+            <div>
+              <dt>bidang</dt>
+              <dd>Software Engineering</dd>
+            </div>
+            <div>
+              <dt>fokus</dt>
+              <dd>Full Stack, Backend, IoT</dd>
+            </div>
+            <div>
+              <dt>proyek</dt>
+              <dd class="num" id="count">0</dd>
+            </div>
+            <div>
+              <dt>status</dt>
+              <dd>Terus belajar</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+      <section id="proyek">
+        <div class="wrap">
+          <div class="sec-head">
+            <span class="label mono" data-reveal>proyek</span>
+            <h2 data-reveal>Sistem dari berbagai bidang.</h2>
+            <p class="lead" data-reveal>
+              Web, desktop, IoT, dan desain antarmuka. Setiap proyek dibangun
+              untuk menyelesaikan satu masalah yang jelas.
+            </p>
+          </div>
+          <div class="work">
+            <div id="projects"></div>
+            <div class="preview" id="preview" aria-hidden="true"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="pendekatan">
+        <div class="wrap">
+          <div class="sec-head">
+            <span class="label mono" data-reveal>pendekatan</span>
+            <h2 data-reveal>Pahami masalah dulu, baru tulis kode.</h2>
+          </div>
+          <div class="principles" id="principles"></div>
+        </div>
+      </section>
+
+      <section id="arah">
+        <div class="wrap">
+          <div class="sec-head">
+            <span class="label mono" data-reveal>arah</span>
+            <h2 data-reveal>Bidang yang sedang saya dalami.</h2>
+          </div>
+          <div class="focus" id="focus"></div>
+        </div>
+      </section>
+
+      <section id="kontak">
+        <div class="wrap contact-grid">
+          <span class="label mono" data-reveal>kontak</span>
+          <h2 data-reveal>Terbuka untuk diskusi dan tantangan baru.</h2>
+          <p class="lead" data-reveal>
+            Saya masih dalam tahap belajar dan senang bertukar pikiran tentang
+            proyek, teknologi, dan cara membangun sesuatu yang berguna.
+          </p>
+          <div class="contact" id="contact" data-reveal></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap mono">
+        <span>Kalingga Arundaya Priatna</span><span>2026</span>
+      </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script type="module" src="module.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+        }
+      }
+    </script>
+  </body>
+</html>
