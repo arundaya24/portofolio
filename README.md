@@ -49,5 +49,5 @@ Repositori ini berisi source code untuk situs web portofolio pribadi saya. Diban
 
 ## Kontak
 
-* **GitHub:** //github.com/arundaya24
+* **GitHub:** (arundaya24) //github.com/arundaya24
 * **Email:** kalinggaarundayapriatna1@gmail.com
