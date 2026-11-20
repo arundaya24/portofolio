@@ -2,7 +2,7 @@
 
 Repositori ini berisi source code untuk situs web portofolio pribadi saya. Dibangun untuk mendokumentasikan riwayat pekerjaan, arsitektur proyek, dan kemampuan teknis di bidang software engineering.
 
-**Live Site:** [Masukkan URL Website Anda]
+**Live Site:** -
 
 ## Tech Stack
 
@@ -41,7 +41,7 @@ Repositori ini berisi source code untuk situs web portofolio pribadi saya. Diban
 
 ## Proyek Utama
 
-* **[Nama Proyek 1]** — Penjelasan satu kalimat tentang masalah yang diselesaikan dan teknologi intinya. ([Demo](#) | [Source](#))
+* **Sistem Pelaporan Kerusakan Jalan** — Website menggunakan Laravel untuk melaporkan kerusakan jalan di sejumlah wilayah Kabupaten Bogor. ([Demo](#) | [github.com/arundaya24/aspara](#))
 * **[Nama Proyek 2]** — Penjelasan satu kalimat tentang masalah yang diselesaikan dan teknologi intinya. ([Demo](#) | [Source](#))
 
 ## Kontak
