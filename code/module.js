@@ -11,46 +11,37 @@ const lerp = (current, target, amount) =>
 
 const vertexSource = `#version 300 es
 precision highp float;
-in vec2 a_position;
+in vec3 a_position;
 uniform float u_time;
 uniform float u_scroll;
 uniform float u_aspect;
 uniform vec2 u_pointer;
 out vec3 v_position;
 out vec2 v_uv;
-out float v_height;
 
 void main() {
-  vec2 uv = a_position;
+  vec3 direction = normalize(a_position);
   float broadWave =
-    sin(uv.x * 2.8 + u_time * 0.32 + u_pointer.y * 0.45) *
-    cos(uv.y * 3.4 - u_time * 0.26 + u_scroll * 1.2);
+    sin(direction.x * 2.8 + u_time * 0.32 + u_pointer.y * 0.45) *
+    cos(direction.y * 3.4 - u_time * 0.26 + u_scroll * 1.2);
   float crossWave =
-    cos((uv.x * 1.25 - uv.y * 1.7) * 3.4 - u_time * 0.18);
-  float detailWave =
-    sin((uv.x - uv.y * 0.7) * 6.0 + u_time * 0.13);
-  vec2 cursorDelta = uv - u_pointer * 0.24;
+    cos((direction.x * 1.25 - direction.y * 1.7) * 3.4 - u_time * 0.18);
+  vec2 cursorDelta = direction.xy - u_pointer * 0.24;
   float cursorField =
     exp(-dot(cursorDelta, cursorDelta) * 3.0) *
-    sin(u_time * 0.42 + uv.x * 2.0);
+    sin(u_time * 0.42 + direction.x * 2.0);
   float height =
-    broadWave * 0.3 + crossWave * 0.15 + detailWave * 0.07 + cursorField * 0.12;
-  float edgeWeight = smoothstep(0.2, 1.2, length(uv));
-  vec2 warped = uv + vec2(
-    sin(uv.y * 3.1 + u_time * 0.13) * 0.045 * edgeWeight,
-    cos(uv.x * 3.4 - u_time * 0.12) * 0.035 * edgeWeight
-  );
-  vec3 position = vec3(warped.x * 1.5, warped.y * 1.2, height);
-  float rotationX = u_pointer.y * 0.12 + u_scroll * 0.1;
-  float rotationY = -u_pointer.x * 0.16 - u_scroll * 0.08;
+    broadWave * 0.025 + crossWave * 0.012 + cursorField * 0.012;
+  vec3 position = direction * (1.0 + height);
+  float rotationX = u_pointer.y * 0.42 + u_scroll * 0.1;
+  float rotationY = -u_pointer.x * 0.52 - u_scroll * 0.08;
   position.yz = mat2(cos(rotationX), -sin(rotationX), sin(rotationX), cos(rotationX)) * position.yz;
   position.xz = mat2(cos(rotationY), -sin(rotationY), sin(rotationY), cos(rotationY)) * position.xz;
-  position.x *= u_aspect;
-  float perspective = 2.4 / (3.4 - position.z * 0.3);
+  position.x *= clamp(1.0 / u_aspect, 0.8, 1.35);
+  float perspective = 2.8 / (3.8 - position.z * 0.3);
   gl_Position = vec4(position.xy * perspective, position.z * 0.04, 1.0);
   v_position = position;
-  v_uv = warped;
-  v_height = height;
+  v_uv = direction.xy;
 }`;
 
 const fragmentSource = `#version 300 es
@@ -61,15 +52,9 @@ uniform vec3 u_ink;
 uniform vec3 u_accent;
 in vec3 v_position;
 in vec2 v_uv;
-in float v_height;
 out vec4 outColor;
 
 void main() {
-  float rimWave =
-    sin(v_uv.x * 5.0 + u_time * 0.12) * 0.035 +
-    cos(v_uv.y * 4.0 - u_time * 0.1) * 0.025;
-  float radius = length(v_uv * vec2(0.94, 1.0)) + rimWave + v_height * 0.08;
-  float edge = 1.0 - smoothstep(0.8, 1.02, radius);
   vec3 normal = normalize(cross(dFdx(v_position), dFdy(v_position)));
   if (normal.z < 0.0) normal = -normal;
   vec3 lightDirection = normalize(vec3(-0.48, 0.72, 0.8));
@@ -86,15 +71,14 @@ void main() {
     14.0
   );
   float flow = 0.5 + 0.5 * sin((v_uv.x * 1.6 + v_uv.y * 0.75) * 6.0 + u_time * 0.12);
-  vec3 color = mix(u_surface, u_ink, 0.14 + diffuse * 0.2);
-  color = mix(color, u_accent, 0.14 + fresnel * 0.28 + flow * 0.06);
+  vec3 color = mix(u_surface, u_ink, 0.12 + diffuse * 0.18);
+  color = mix(color, u_accent, 0.2 + fresnel * 0.45 + flow * 0.08);
   color = mix(
     color,
     u_surface,
-    clamp(specular * 0.5 + rimSpecular * 0.18 + fresnel * 0.1, 0.0, 0.62)
+    clamp(specular * 0.48 + rimSpecular * 0.16 + fresnel * 0.08, 0.0, 0.6)
   );
-  float alpha = edge * (0.78 + specular * 0.16 + rimSpecular * 0.08);
-  outColor = vec4(color, alpha);
+  outColor = vec4(color, 0.92);
 }`;
 
 const createShader = (gl, type, source) => {
@@ -129,16 +113,20 @@ const createProgram = (gl) => {
 };
 
 const createSurface = (gl, segments) => {
-  const vertices = new Float32Array((segments + 1) * (segments + 1) * 2);
+  const vertices = new Float32Array((segments + 1) * (segments + 1) * 3);
   const indices = new Uint16Array(segments * segments * 6);
   let vertexIndex = 0;
   let index = 0;
 
   for (let y = 0; y <= segments; y += 1) {
     for (let x = 0; x <= segments; x += 1) {
-      vertices[vertexIndex] = (x / segments) * 2 - 1;
-      vertices[vertexIndex + 1] = 1 - (y / segments) * 2;
-      vertexIndex += 2;
+      const longitude = (x / segments) * Math.PI * 2;
+      const latitude = (y / segments) * Math.PI;
+      const sinLatitude = Math.sin(latitude);
+      vertices[vertexIndex] = sinLatitude * Math.cos(longitude);
+      vertices[vertexIndex + 1] = Math.cos(latitude);
+      vertices[vertexIndex + 2] = sinLatitude * Math.sin(longitude);
+      vertexIndex += 3;
       if (x === segments || y === segments) continue;
       const current = y * (segments + 1) + x;
       const nextRow = current + segments + 1;
@@ -279,7 +267,7 @@ if (canRender()) {
       gl.bindBuffer(gl.ARRAY_BUFFER, surface.vertexBuffer);
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, surface.indexBuffer);
       gl.enableVertexAttribArray(positionLocation);
-      gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+      gl.vertexAttribPointer(positionLocation, 3, gl.FLOAT, false, 0, 0);
       gl.uniform1f(uniforms.time, state.time);
       gl.uniform1f(
         uniforms.aspect,
@@ -366,6 +354,7 @@ if (canRender()) {
     gl.clearColor(0, 0, 0, 0);
     gl.enable(gl.BLEND);
     gl.enable(gl.DEPTH_TEST);
+    gl.enable(gl.CULL_FACE);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
     updateColors();
     resize();

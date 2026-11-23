@@ -157,6 +157,15 @@ document.documentElement.classList.add("js");
               .querySelectorAll(`[data-cover="${index}"]`)
               .forEach((cover) => {
                 cover.classList.add("has-img");
+                const ratio = `${image.naturalWidth} / ${image.naturalHeight}`;
+                cover.style.setProperty("--cover-ratio", ratio);
+                const mobileFrame = cover.closest(".m-cover");
+                if (mobileFrame) mobileFrame.style.aspectRatio = ratio;
+                if (
+                  cover.classList.contains("on") &&
+                  cover.parentElement.id === "preview"
+                )
+                  cover.parentElement.style.aspectRatio = ratio;
                 cover.prepend(image.cloneNode());
               });
           };
@@ -172,6 +181,8 @@ document.documentElement.classList.add("js");
           covers.forEach((cover, i) =>
             cover.classList.toggle("on", i === index),
           );
+          byId("preview").style.aspectRatio =
+            covers[index].style.getPropertyValue("--cover-ratio") || "4 / 5";
         };
         rows.forEach((row, index) => {
           row.addEventListener("pointerenter", () => activate(index));
