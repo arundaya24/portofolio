@@ -6,7 +6,7 @@ document.documentElement.classList.add("js");
             title: "Website Pelaporan Kerusakan Jalan",
             type: "Web",
             pattern: 0,
-            image: "assets/aspara.png",
+            image: "../assets/aspara.png",
             href: "https://github.com/arundaya24/aspara",
             desc: "Website Laravel untuk melaporkan kerusakan jalan di sejumlah wilayah Kabupaten Bogor.",
             tags: ["Laravel", "Web", "Pelaporan"],
@@ -15,7 +15,7 @@ document.documentElement.classList.add("js");
             title: "Website Penyampaian Aspirasi Masyarakat",
             type: "Web",
             pattern: 1,
-            image: "assets/titik-kritis.png",
+            image: "../assets/titik-kritis.png",
             href: "https://github.com/arundaya24/titikkritis",
             desc: "Website berbasis Laravel untuk menyampaikan aspirasi masyarakat.",
             tags: ["Laravel", "Web", "Layanan publik"],
@@ -24,7 +24,7 @@ document.documentElement.classList.add("js");
             title: "AI Pengenal Gambar Berbasis Deep Learning",
             type: "AI",
             pattern: 2,
-            image: "assets/arun-d.png",
+            image: "../assets/arun-d.png",
             href: "https://github.com/arundaya24/arun-d",
             desc: "AI berbasis Python yang berjalan di website untuk mengidentifikasi gambar dari pengguna.",
             tags: ["Python", "Deep Learning", "Web"],
@@ -33,7 +33,7 @@ document.documentElement.classList.add("js");
             title: "Aplikasi Manajemen Pendakian TNGGP",
             type: "Desktop",
             pattern: 3,
-            image: "assets/tnggp.png",
+            image: "../assets/tnggp.png",
             href: "https://github.com/arundaya24/ManajemenPendakianTNGGP",
             desc: "Aplikasi Windows berbasis VB.NET untuk mencatat kegiatan pendakian gunung.",
             tags: ["VB.NET", "Windows", "Desktop"],
@@ -42,7 +42,7 @@ document.documentElement.classList.add("js");
             title: "Aplikasi Mobile Pencatat Tugas Sekolah",
             type: "Mobile",
             pattern: 0,
-            image: "assets/nigas.png",
+            image: "../assets/nigas.png",
             href: "https://github.com/arundaya24/nigas",
             desc: "Aplikasi mobile berbasis Dart untuk mencatat tugas sekolah.",
             tags: ["Dart", "Flutter", "Mobile"],
@@ -57,7 +57,7 @@ document.documentElement.classList.add("js");
             tags: ["Flutter", "Dart", "SQLite", "Jurnal"],
           },
           {
-            title: "Mimo — Virtual Pet Interaktif",
+            title: "Mimo: Virtual Pet Interaktif",
             type: "Web",
             pattern: 2,
             image: "",
@@ -93,11 +93,13 @@ document.documentElement.classList.add("js");
           email: "kalinggaarundayapriatna1@gmail.com",
           links: [
             {
-              label: "WhatsApp: 081218307660",
+              label: "WhatsApp",
+              value: "081218307660",
               href: "https://wa.me/6281218307660",
             },
             {
-              label: "GitHub: github.com/arundaya24",
+              label: "GitHub",
+              value: "github.com/arundaya24",
               href: "https://github.com/arundaya24",
             },
           ],
@@ -200,13 +202,13 @@ document.documentElement.classList.add("js");
         const items = [];
         if (email)
           items.push(
-            `<div class="mag" data-magnetic><a class="btn btn-primary" href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></div>`,
+            `<a class="contact-link" href="mailto:${escapeHtml(email)}"><span class="contact-name mono">Email</span><span class="contact-value">${escapeHtml(email)}</span></a>`,
           );
         links
           .filter((link) => link.href)
           .forEach((link) =>
             items.push(
-              `<a class="btn" href="${escapeHtml(link.href)}" target="_blank" rel="noopener">${escapeHtml(link.label)}</a>`,
+              `<a class="contact-link" href="${escapeHtml(link.href)}" target="_blank" rel="noopener"><span class="contact-name mono">${escapeHtml(link.label)}</span><span class="contact-value">${escapeHtml(link.value || link.href)}</span></a>`,
             ),
           );
         byId("contact").innerHTML = items.join("");

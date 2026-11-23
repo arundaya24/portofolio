@@ -32,29 +32,25 @@
 
     <main id="top">
       <div class="hero">
-        <div class="hero-stage" aria-hidden="true">
-          <div class="orbit-fallback"></div>
-          <canvas id="scene"></canvas>
-        </div>
         <div class="wrap hero-grid">
           <span class="status mono" data-reveal
-            ><span class="dot"></span>aspiring software engineer</span
+            >portfolio pribadi / software engineering</span
           >
           <h1 aria-label="Kalingga Arundaya Priatna">
-            <span class="line"><span style="--i: 0">Kalingga</span></span>
-            <span class="line"><span style="--i: 1">Arundaya</span></span>
-            <span class="line"><span style="--i: 2">Priatna</span></span>
+            <span class="line"
+              ><span style="--i: 0">Kalingga Arundaya</span></span
+            >
+            <span class="line"><span style="--i: 1">Priatna</span></span>
           </h1>
           <p class="lead" data-reveal>
-            Siswa SMK jurusan Rekayasa Perangkat Lunak. Saya belajar
-            software engineering dengan membangun: dari web serta aplikasi dekstop dan mobile,
-            sampai sistem IoT berbasis Arduino.
+            Siswa RPL yang membangun web dan aplikasi sambil memperdalam
+            software engineering.
           </p>
           <div class="actions" data-reveal style="--d: 80ms">
             <div class="mag" data-magnetic>
               <a class="btn btn-primary" href="#proyek">Lihat proyek</a>
             </div>
-            <a class="btn" href="#pendekatan">Cara saya bekerja</a>
+            <a class="btn" href="#kontak">Hubungi saya</a>
           </div>
           <dl class="meta" data-reveal style="--d: 160ms">
             <div>
@@ -67,11 +63,11 @@
             </div>
             <div>
               <dt>proyek</dt>
-              <dd class="num" id="count">0</dd>
+              <dd class="num" id="count">7</dd>
             </div>
             <div>
-              <dt>status</dt>
-              <dd>Terus belajar</dd>
+              <dt>proses</dt>
+              <dd>Belajar dan membangun</dd>
             </div>
           </dl>
         </div>
@@ -80,11 +76,9 @@
       <section id="proyek">
         <div class="wrap">
           <div class="sec-head">
-            <span class="label mono" data-reveal>proyek</span>
-            <h2 data-reveal>Sistem dari berbagai bidang.</h2>
+            <h2 data-reveal>Proyek yang saya bangun.</h2>
             <p class="lead" data-reveal>
-              Web, desktop, IoT, dan desain antarmuka. Setiap proyek dibangun
-              untuk menyelesaikan satu masalah yang jelas.
+              Aplikasi dan website untuk kebutuhan yang berbeda.
             </p>
           </div>
           <div class="work">
@@ -97,8 +91,7 @@
       <section id="pendekatan">
         <div class="wrap">
           <div class="sec-head">
-            <span class="label mono" data-reveal>pendekatan</span>
-            <h2 data-reveal>Pahami masalah dulu, baru tulis kode.</h2>
+            <h2 data-reveal>Saya mulai dari masalahnya.</h2>
           </div>
           <div class="principles" id="principles"></div>
         </div>
@@ -107,8 +100,7 @@
       <section id="arah">
         <div class="wrap">
           <div class="sec-head">
-            <span class="label mono" data-reveal>arah</span>
-            <h2 data-reveal>Bidang yang sedang saya dalami.</h2>
+            <h2 data-reveal>Fokus yang sedang saya dalami.</h2>
           </div>
           <div class="focus" id="focus"></div>
         </div>
@@ -116,7 +108,7 @@
 
       <section id="kontak">
         <div class="wrap contact-grid">
-          <span class="label mono" data-reveal>kontak</span>
+          <h2 data-reveal>Hubungi saya.</h2>
           <div class="contact" id="contact" data-reveal></div>
         </div>
       </section>
@@ -129,14 +121,5 @@
     </footer>
 
     <script src="main.js"></script>
-    <script type="module" src="module.js"></script>
-    <script type="importmap">
-      {
-        "imports": {
-          "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
-          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
-        }
-      }
-    </script>
   </body>
 </html>
