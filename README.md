@@ -56,7 +56,7 @@ Tidak ada dependensi npm atau langkah build yang diperlukan.
 - [Website Pelaporan Kerusakan Jalan](https://github.com/arundaya24/aspara) — Website Laravel untuk melaporkan kerusakan jalan.
 - [Website Penyampaian Aspirasi Masyarakat](https://github.com/arundaya24/titikkritis) — Website Laravel untuk menyampaikan aspirasi masyarakat.
 - [AI Pengenal Gambar Berbasis Deep Learning](https://github.com/arundaya24/arun-d) — AI berbasis Python untuk mengenali gambar melalui website.
-- [Aplikasi Manajemen Pendakian TNGGP](https://github.com/arundaya24/ManajemenPendakianTNGGP) — Aplikasi Windows berbasis VB.NET untuk mencatat kegiatan pendakian.
+- [Website sablon](https://github.com/arundaya24/inkra) — Website menggunakan PHP Native untuk sablon pakaian.
 - [Nigas](https://github.com/arundaya24/nigas) — Aplikasi Flutter untuk mencatat tugas sekolah.
 - [DayMark](https://github.com/arundaya24/DayMark) — Jurnal harian Flutter dengan pencatatan mood, heatmap konsistensi, dan ekspor PDF.
 - [Mimo: Virtual Pet Interaktif](https://github.com/arundaya24/mimo) — Virtual pet berbasis web dengan kepribadian dan perilaku interaktif.
