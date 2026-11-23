@@ -32,6 +32,10 @@
 
     <main id="top">
       <div class="hero">
+        <div class="hero-visual" aria-hidden="true">
+          <div class="hero-surface-fallback"></div>
+          <canvas class="hero-canvas" id="scene"></canvas>
+        </div>
         <div class="wrap hero-grid">
           <span class="status mono" data-reveal
             >portfolio pribadi / software engineering</span
@@ -121,5 +125,6 @@
     </footer>
 
     <script src="main.js"></script>
+    <script type="module" src="module.js"></script>
   </body>
 </html>
