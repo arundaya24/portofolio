@@ -354,7 +354,7 @@ const mount = async () => {
       -0.4 + state.x * 0.3,
       0,
     );
-    pivot.position.set(state.x * 0.08, 0.35 - state.scroll * 0.1, 0);
+    pivot.position.set(-0.45 + state.x * 0.08, 0.35 - state.scroll * 0.1, 0);
 
     renderer.render(scene, camera);
     if (!revealed) {
