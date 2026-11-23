@@ -3,60 +3,67 @@ document.documentElement.classList.add("js");
       const CONFIG = {
         projects: [
           {
-            title: "Pengaduan dan Aspirasi Masyarakat",
-            type: "web",
-            pattern: 1,
-            image: "",
-            desc: "Website tempat masyarakat menyampaikan pengaduan dan aspirasi.",
-            tags: ["Web", "Layanan publik"],
+            title: "Website Pelaporan Kerusakan Jalan",
+            type: "Web",
+            pattern: 0,
+            image: "assets/aspara.png",
+            href: "https://github.com/arundaya24/aspara",
+            desc: "Website Laravel untuk melaporkan kerusakan jalan di sejumlah wilayah Kabupaten Bogor.",
+            tags: ["Laravel", "Web", "Pelaporan"],
           },
           {
-            title: "AI Berbasis Deep Learning",
+            title: "Website Penyampaian Aspirasi Masyarakat",
+            type: "Web",
+            pattern: 1,
+            image: "assets/titik-kritis.png",
+            href: "https://github.com/arundaya24/titikkritis",
+            desc: "Website berbasis Laravel untuk menyampaikan aspirasi masyarakat.",
+            tags: ["Laravel", "Web", "Layanan publik"],
+          },
+          {
+            title: "AI Pengenal Gambar Berbasis Deep Learning",
+            type: "AI",
+            pattern: 2,
+            image: "assets/arun-d.png",
+            href: "https://github.com/arundaya24/arun-d",
+            desc: "AI berbasis Python yang berjalan di website untuk mengidentifikasi gambar dari pengguna.",
+            tags: ["Python", "Deep Learning", "Web"],
+          },
+          {
+            title: "Aplikasi Manajemen Pendakian TNGGP",
+            type: "Desktop",
+            pattern: 3,
+            image: "assets/tnggp.png",
+            href: "https://github.com/arundaya24/ManajemenPendakianTNGGP",
+            desc: "Aplikasi Windows berbasis VB.NET untuk mencatat kegiatan pendakian gunung.",
+            tags: ["VB.NET", "Windows", "Desktop"],
+          },
+          {
+            title: "Aplikasi Mobile Pencatat Tugas Sekolah",
+            type: "Mobile",
+            pattern: 0,
+            image: "assets/nigas.png",
+            href: "https://github.com/arundaya24/nigas",
+            desc: "Aplikasi mobile berbasis Dart untuk mencatat tugas sekolah.",
+            tags: ["Dart", "Flutter", "Mobile"],
+          },
+          {
+            title: "DayMark",
+            type: "Mobile",
+            pattern: 1,
+            image: "",
+            href: "https://github.com/arundaya24/DayMark",
+            desc: "Aplikasi jurnal harian berbasis Flutter untuk mencatat refleksi dan mood, melihat konsistensi lewat heatmap, serta membuat ringkasan dan ekspor PDF.",
+            tags: ["Flutter", "Dart", "SQLite", "Jurnal"],
+          },
+          {
+            title: "Mimo — Virtual Pet Interaktif",
             type: "Web",
             pattern: 2,
             image: "",
-            desc: "AI dengan deep learning untuk mengenali gambar.",
-            tags: ["VB.NET", "Desktop"],
-          },
-          {
-            title: "Aplikasi Mobile Flutter",
-            type: "Aplikasi",
-            pattern: 2,
-            image: "",
-            desc: "Desain antarmuka untuk aplikasi dan website.",
-            tags: ["UI/UX", "Desain"],
-          },
-          {
-            title: "Pelaporan Kerusakan Jalan",
-            type: "web",
-            pattern: 0,
-            image: "assets/aspara.png",
-            desc: "Website untuk melaporkan kerusakan jalan agar laporan dapat dikumpulkan dan ditindaklanjuti.",
-            tags: ["Web", "Pelaporan"],
-          },
-          {
-            title: "Penyiraman Tanaman Otomatis",
-            type: "iot",
-            pattern: 0,
-            image: "",
-            desc: "Sistem penyiraman tanaman otomatis berbasis IoT.",
-            tags: ["IoT", "Embedded"],
-          },
-          {
-            title: "Cybernetic Note Glove",
-            type: "hardware",
-            pattern: 1,
-            image: "",
-            desc: "Perangkat sarung tangan untuk mencatat, dibangun di atas Arduino Uno.",
-            tags: ["Arduino Uno", "Embedded"],
-          },
-          {
-            title: "Laporan Pendakian Gunung",
-            type: "aplikasi",
-            pattern: 3,
-            image: "",
-            desc: "Aplikasi untuk mencatat dan melaporkan kegiatan pendakian gunung.",
-            tags: ["Aplikasi"],
+            href: "https://github.com/arundaya24/mimo",
+            desc: "Website virtual pet untuk merawat kucing digital dengan kepribadian, emosi, kustomisasi, dan perilaku interaktif.",
+            tags: ["React", "TypeScript", "Laravel", "Virtual Pet"],
           },
         ],
         principles: [
@@ -82,7 +89,19 @@ document.documentElement.classList.add("js");
           "System Design",
           "IoT dan Embedded Systems",
         ],
-        contact: { email: "", links: [] },
+        contact: {
+          email: "kalinggaarundayapriatna1@gmail.com",
+          links: [
+            {
+              label: "WhatsApp: 081218307660",
+              href: "https://wa.me/6281218307660",
+            },
+            {
+              label: "GitHub: github.com/arundaya24",
+              href: "https://github.com/arundaya24",
+            },
+          ],
+        },
       };
 
       const reducedMotion = matchMedia(
@@ -109,7 +128,7 @@ document.documentElement.classList.add("js");
             (project, index) => `
     <article class="project${index === 0 ? " on" : ""}" tabindex="0" data-index="${index}" data-reveal>
       <span class="type mono">${escapeHtml(project.type || "proyek")}</span>
-      <h3>${escapeHtml(project.title)}</h3>
+      <h3>${project.href ? `<a href="${escapeHtml(project.href)}" target="_blank" rel="noopener">${escapeHtml(project.title)}</a>` : escapeHtml(project.title)}</h3>
       <p>${escapeHtml(project.desc || "")}</p>
       <div class="tags">${(project.tags || []).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
       <div class="m-cover">${coverMarkup(project, index)}</div>
@@ -181,7 +200,7 @@ document.documentElement.classList.add("js");
         const items = [];
         if (email)
           items.push(
-            `<div class="mag" data-magnetic><a class="btn btn-primary" href="mailto:${escapeHtml(email)}">Kirim email</a></div>`,
+            `<div class="mag" data-magnetic><a class="btn btn-primary" href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></div>`,
           );
         links
           .filter((link) => link.href)
