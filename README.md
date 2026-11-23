@@ -1,49 +1,67 @@
-# Kalingga Arundaya Priatna — Software Engineering Portfolio
+# Portofolio Kalingga Arundaya Priatna
 
-Repositori ini berisi source code untuk situs web portofolio pribadi saya. Dibangun untuk mendokumentasikan riwayat pekerjaan, arsitektur proyek, dan kemampuan teknis di bidang software engineering.
+Situs portofolio pribadi untuk menampilkan profil, pendekatan dalam membangun software, fokus pembelajaran, dan proyek-proyek yang telah dibuat. Situs ini dibuat dengan HTML, CSS, dan JavaScript tanpa framework atau proses build.
 
-**Live Site:** -
+## Fitur
 
-## Tech Stack
+- Tampilan responsif untuk desktop dan perangkat mobile.
+- Objek 3D interaktif berbasis WebGL 2 pada perangkat yang mendukungnya.
+- Daftar proyek dengan preview gambar yang mengikuti rasio asli gambar.
+- Preview gambar dapat dibuka dalam ukuran besar dan diperbesar dengan kontrol zoom.
+- Tautan menuju repositori GitHub pada setiap proyek.
+- Animasi antarmuka yang menghormati preferensi reduced motion.
 
-* **Frontend:** HTML, CSS, JavaScript, React, Next.js, Tailwind CSS, Bootstrap
-* **Backend:** PHP (Laravel), Python, VB.NET, MySQL, REST API
-* **Deployment:** Vercel, Netlify
-* **Tools & Workflow:** Git, GitHub, Postman, Figma
-* **IoT & Embedded:** C++, Arduino Uno, ESP32
+## Teknologi
+
+- HTML
+- CSS
+- JavaScript
+- WebGL 2
+- Google Fonts: Geist dan Geist Mono
+
+Tidak ada dependensi npm atau langkah build yang diperlukan.
 
 ## Struktur Direktori
 
 ```text
 .
-├── code/          # Source code utama aplikasi web
-└── README.md      # Dokumentasi repositori
+├── assets/                 # Gambar preview proyek
+├── code/
+│   ├── main.js             # Data dan interaksi antarmuka
+│   ├── module.js           # Objek 3D berbasis WebGL 2
+│   ├── portofolio.html     # Halaman utama
+│   └── style.css           # Gaya dan layout responsif
+└── README.md
 ```
 
-## Menjalankan di Lokal
+## Menjalankan Secara Lokal
 
 1. Clone repositori:
+
    ```bash
-   git clone https://github.com
+   git clone https://github.com/arundaya24/portofolio.git
+   cd portofolio
    ```
 
-2. buka file index.html di browser
+2. Jalankan server statis dari direktori repositori:
 
-## Proyek Utama
+   ```bash
+   python -m http.server 8000
+   ```
 
-* **Website Pelaporan Kerusakan Jalan** — Website menggunakan Laravel untuk melaporkan kerusakan jalan di sejumlah wilayah Kabupaten Bogor. ([github.com/arundaya24/aspara](#))
-* **Website Penyampaian Aspirasi Masyarakat** — Website dengan framework laravel yang berfungsi sebagai penyampaian aspirasi masyarakat. 
-([github.com/arundaya24/titikkritis](#))
-* **AI Berbasis Deep Learning untuk mengenali gambar** — AI menggunakan python dan dijalankan di website, berfungsi untuk mengidentifikasi gambar yang diinput oleh pengguna. 
-([github.com/arundaya24/arun-d](#))
-* **Aplikasi Pendakian Gunung** — Aplikasi Windows untuk mencatat kegiatan pendakian gunung menggunakan VB.Net. 
-([https://github.com/arundaya24/ManajemenPendakianTNGGP](#))
-* **Aplikasi Mobile Pencatat Tugas Sekolah** — Aplikasi mobile menggunakan bahasa pemrograman dart untuk mencatat tugas sekolah. 
-([github.com/arundaya24/nigas](#))
-* **Aplikasi Mobile Buku Harian** — Aplikasi mobile menggunakan bahasa pemrograman dart untuk mencatat tugas sekolah. 
-([github.com/arundaya24/nigas](#))
+3. Buka [http://localhost:8000/code/portofolio.html](http://localhost:8000/code/portofolio.html) di browser.
+
+## Proyek
+
+- [Website Pelaporan Kerusakan Jalan](https://github.com/arundaya24/aspara) — Website Laravel untuk melaporkan kerusakan jalan.
+- [Website Penyampaian Aspirasi Masyarakat](https://github.com/arundaya24/titikkritis) — Website Laravel untuk menyampaikan aspirasi masyarakat.
+- [AI Pengenal Gambar Berbasis Deep Learning](https://github.com/arundaya24/arun-d) — AI berbasis Python untuk mengenali gambar melalui website.
+- [Aplikasi Manajemen Pendakian TNGGP](https://github.com/arundaya24/ManajemenPendakianTNGGP) — Aplikasi Windows berbasis VB.NET untuk mencatat kegiatan pendakian.
+- [Nigas](https://github.com/arundaya24/nigas) — Aplikasi Flutter untuk mencatat tugas sekolah.
+- [DayMark](https://github.com/arundaya24/DayMark) — Jurnal harian Flutter dengan pencatatan mood, heatmap konsistensi, dan ekspor PDF.
+- [Mimo: Virtual Pet Interaktif](https://github.com/arundaya24/mimo) — Virtual pet berbasis web dengan kepribadian dan perilaku interaktif.
 
 ## Kontak
 
-* **GitHub:** [arundaya24](https://://github.com/arundaya24)
-* **Email:** kalinggaarundayapriatna1@gmail.com
+- GitHub: [arundaya24](https://github.com/arundaya24)
+- Email: [kalinggaarundayapriatna1@gmail.com](mailto:kalinggaarundayapriatna1@gmail.com)
