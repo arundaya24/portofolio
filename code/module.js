@@ -18,19 +18,29 @@ uniform float u_aspect;
 uniform vec2 u_pointer;
 out vec3 v_position;
 out vec2 v_uv;
+out float v_height;
 
 void main() {
   vec2 uv = a_position;
   float broadWave =
-    sin(uv.x * 3.1 + u_time * 0.32 + u_pointer.y * 0.45) *
-    cos(uv.y * 3.7 - u_time * 0.26 + u_scroll * 1.2);
+    sin(uv.x * 2.8 + u_time * 0.32 + u_pointer.y * 0.45) *
+    cos(uv.y * 3.4 - u_time * 0.26 + u_scroll * 1.2);
   float crossWave =
-    sin((uv.x * 1.25 - uv.y * 1.7) * 3.2 - u_time * 0.18);
+    cos((uv.x * 1.25 - uv.y * 1.7) * 3.4 - u_time * 0.18);
+  float detailWave =
+    sin((uv.x - uv.y * 0.7) * 6.0 + u_time * 0.13);
+  vec2 cursorDelta = uv - u_pointer * 0.24;
   float cursorField =
-    exp(-length(uv - u_pointer * 0.24) * 4.2) *
+    exp(-dot(cursorDelta, cursorDelta) * 3.0) *
     sin(u_time * 0.42 + uv.x * 2.0);
-  float height = broadWave * 0.2 + crossWave * 0.075 + cursorField * 0.08;
-  vec3 position = vec3(uv.x * 1.5, uv.y * 1.2, height);
+  float height =
+    broadWave * 0.3 + crossWave * 0.15 + detailWave * 0.07 + cursorField * 0.12;
+  float edgeWeight = smoothstep(0.2, 1.2, length(uv));
+  vec2 warped = uv + vec2(
+    sin(uv.y * 3.1 + u_time * 0.13) * 0.045 * edgeWeight,
+    cos(uv.x * 3.4 - u_time * 0.12) * 0.035 * edgeWeight
+  );
+  vec3 position = vec3(warped.x * 1.5, warped.y * 1.2, height);
   float rotationX = u_pointer.y * 0.12 + u_scroll * 0.1;
   float rotationY = -u_pointer.x * 0.16 - u_scroll * 0.08;
   position.yz = mat2(cos(rotationX), -sin(rotationX), sin(rotationX), cos(rotationX)) * position.yz;
@@ -39,7 +49,8 @@ void main() {
   float perspective = 2.4 / (3.4 - position.z * 0.3);
   gl_Position = vec4(position.xy * perspective, position.z * 0.04, 1.0);
   v_position = position;
-  v_uv = uv;
+  v_uv = warped;
+  v_height = height;
 }`;
 
 const fragmentSource = `#version 300 es
@@ -50,26 +61,39 @@ uniform vec3 u_ink;
 uniform vec3 u_accent;
 in vec3 v_position;
 in vec2 v_uv;
+in float v_height;
 out vec4 outColor;
 
 void main() {
-  float radius = length(v_uv * vec2(0.94, 1.0));
-  float edge = 1.0 - smoothstep(0.78, 1.02, radius);
+  float rimWave =
+    sin(v_uv.x * 5.0 + u_time * 0.12) * 0.035 +
+    cos(v_uv.y * 4.0 - u_time * 0.1) * 0.025;
+  float radius = length(v_uv * vec2(0.94, 1.0)) + rimWave + v_height * 0.08;
+  float edge = 1.0 - smoothstep(0.8, 1.02, radius);
   vec3 normal = normalize(cross(dFdx(v_position), dFdy(v_position)));
   if (normal.z < 0.0) normal = -normal;
   vec3 lightDirection = normalize(vec3(-0.48, 0.72, 0.8));
+  vec3 rimDirection = normalize(vec3(0.62, -0.32, 0.7));
   vec3 viewDirection = vec3(0.0, 0.0, 1.0);
   float diffuse = max(dot(normal, lightDirection), 0.0);
   float fresnel = pow(1.0 - max(normal.z, 0.0), 2.2);
   float specular = pow(
     max(dot(reflect(-lightDirection, normal), viewDirection), 0.0),
-    28.0
+    22.0
+  );
+  float rimSpecular = pow(
+    max(dot(reflect(-rimDirection, normal), viewDirection), 0.0),
+    14.0
   );
   float flow = 0.5 + 0.5 * sin((v_uv.x * 1.6 + v_uv.y * 0.75) * 6.0 + u_time * 0.12);
-  vec3 color = mix(u_surface, u_ink, 0.12 + diffuse * 0.14);
-  color = mix(color, u_accent, 0.1 + fresnel * 0.22 + flow * 0.05);
-  color = mix(color, u_surface, clamp(specular * 0.42 + fresnel * 0.12, 0.0, 0.55));
-  float alpha = edge * (0.72 + specular * 0.18);
+  vec3 color = mix(u_surface, u_ink, 0.14 + diffuse * 0.2);
+  color = mix(color, u_accent, 0.14 + fresnel * 0.28 + flow * 0.06);
+  color = mix(
+    color,
+    u_surface,
+    clamp(specular * 0.5 + rimSpecular * 0.18 + fresnel * 0.1, 0.0, 0.62)
+  );
+  float alpha = edge * (0.78 + specular * 0.16 + rimSpecular * 0.08);
   outColor = vec4(color, alpha);
 }`;
 
