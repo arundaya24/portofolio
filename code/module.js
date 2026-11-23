@@ -253,10 +253,11 @@ const mount = async () => {
     new THREE.BufferAttribute(particlePositions, 3),
   );
   const particles = new THREE.Points(particleGeometry, materials.particle);
+  pivot.add(particles);
 
   const scene = new THREE.Scene();
   const lights = createLights(THREE);
-  scene.add(fitGroup, particles, ...lights.all);
+  scene.add(fitGroup, ...lights.all);
 
   const state = {
     pointerX: 0,
