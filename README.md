@@ -34,11 +34,13 @@ Repositori ini berisi source code untuk situs web portofolio pribadi saya. Diban
 * **Website Pelaporan Kerusakan Jalan** — Website menggunakan Laravel untuk melaporkan kerusakan jalan di sejumlah wilayah Kabupaten Bogor. ([github.com/arundaya24/aspara](#))
 * **Website Penyampaian Aspirasi Masyarakat** — Website dengan framework laravel yang berfungsi sebagai penyampaian aspirasi masyarakat. 
 ([github.com/arundaya24/titikkritis](#))
-* **AI Machine Learning untuk mengenali gambar** — AI menggunakan python dan dijalankan di website, berfungsi untuk mengidentifikasi gambar yang diinput oleh pengguna. 
+* **AI Berbasis Deep Learning untuk mengenali gambar** — AI menggunakan python dan dijalankan di website, berfungsi untuk mengidentifikasi gambar yang diinput oleh pengguna. 
 ([github.com/arundaya24/arun-d](#))
-* **Windows Form Aplikasi Pendakian Gunung** — Aplikasi Windows untuk mencatat kegiatan pendakian gunung menggunakan VB.Net. 
+* **Aplikasi Pendakian Gunung** — Aplikasi Windows untuk mencatat kegiatan pendakian gunung menggunakan VB.Net. 
 ([https://github.com/arundaya24/ManajemenPendakianTNGGP](#))
-* **Nigas - Aplikasi mobile** — Aplikasi mobile menggunakan bahasa pemrograman dart untuk mencatat tugas sekolah. 
+* **Aplikasi Mobile Pencatat Tugas Sekolah** — Aplikasi mobile menggunakan bahasa pemrograman dart untuk mencatat tugas sekolah. 
+([github.com/arundaya24/nigas](#))
+* **Aplikasi Mobile Buku Harian** — Aplikasi mobile menggunakan bahasa pemrograman dart untuk mencatat tugas sekolah. 
 ([github.com/arundaya24/nigas](#))
 
 ## Kontak
