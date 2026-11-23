@@ -287,7 +287,7 @@ const mount = async () => {
       Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
     fitGroup.scale.setScalar(
       Math.min(0.7 * visibleHeight, 0.7 * visibleHeight * camera.aspect) /
-      4.8,
+      5.2,
     );
   };
 
@@ -354,7 +354,7 @@ const mount = async () => {
       -0.4 + state.x * 0.3,
       0,
     );
-    pivot.position.set(-0.45 + state.x * 0.08, 0.35 - state.scroll * 0.1, 0);
+    pivot.position.set(-0.85 + state.x * 0.08, 1.1 - state.scroll * 0.1, 0);
 
     renderer.render(scene, camera);
     if (!revealed) {
