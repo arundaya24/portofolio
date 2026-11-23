@@ -5,7 +5,7 @@ Situs portofolio pribadi untuk menampilkan profil, pendekatan dalam membangun so
 ## Fitur
 
 - Tampilan responsif untuk desktop dan perangkat mobile.
-- Objek 3D interaktif berbasis WebGL 2 pada perangkat yang mendukungnya.
+- Objek 3D interaktif berbasis Three.js dengan gyroscope, shell wireframe, cincin orbit, dan partikel.
 - Daftar proyek dengan preview gambar yang mengikuti rasio asli gambar.
 - Preview gambar dapat dibuka dalam ukuran besar dan diperbesar dengan kontrol zoom.
 - Tautan menuju repositori GitHub pada setiap proyek.
@@ -16,10 +16,10 @@ Situs portofolio pribadi untuk menampilkan profil, pendekatan dalam membangun so
 - HTML
 - CSS
 - JavaScript
-- WebGL 2
+- Three.js 0.180.0 dan WebGL 2
 - Google Fonts: Geist dan Geist Mono
 
-Tidak ada dependensi npm atau langkah build yang diperlukan.
+Tidak ada instalasi npm atau langkah build yang diperlukan. Three.js dimuat dari jsDelivr; koneksi internet dibutuhkan untuk menampilkan scene 3D.
 
 ## Struktur Direktori
 
@@ -28,7 +28,7 @@ Tidak ada dependensi npm atau langkah build yang diperlukan.
 ├── assets/                 # Gambar preview proyek
 ├── code/
 │   ├── main.js             # Data dan interaksi antarmuka
-│   ├── module.js           # Objek 3D berbasis WebGL 2
+│   ├── module.js           # Scene 3D interaktif berbasis Three.js
 │   ├── portofolio.html     # Halaman utama
 │   └── style.css           # Gaya dan layout responsif
 └── README.md
