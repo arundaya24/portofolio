@@ -127,14 +127,20 @@ document.documentElement.classList.add("js");
         byId("count").textContent = CONFIG.projects.length;
         byId("projects").innerHTML = CONFIG.projects
           .map(
-            (project, index) => `
+            (project, index) => {
+              const githubLink = project.href
+                ? `<a class="project-github mono" href="${escapeHtml(project.href)}" target="_blank" rel="noopener">Lihat repositori di GitHub</a>`
+                : "";
+              return `
     <article class="project${index === 0 ? " on" : ""}" tabindex="0" data-index="${index}" data-reveal>
       <span class="type mono">${escapeHtml(project.type || "proyek")}</span>
       <h3>${project.href ? `<a href="${escapeHtml(project.href)}" target="_blank" rel="noopener">${escapeHtml(project.title)}</a>` : escapeHtml(project.title)}</h3>
       <p>${escapeHtml(project.desc || "")}</p>
       <div class="tags">${(project.tags || []).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("")}</div>
       <div class="m-cover">${coverMarkup(project, index)}</div>
-    </article>`,
+      ${githubLink}
+    </article>`;
+            },
           )
           .join("");
         byId("preview").innerHTML = CONFIG.projects
@@ -157,6 +163,23 @@ document.documentElement.classList.add("js");
               .querySelectorAll(`[data-cover="${index}"]`)
               .forEach((cover) => {
                 cover.classList.add("has-img");
+                cover.setAttribute("role", "button");
+                cover.setAttribute(
+                  "tabindex",
+                  cover.parentElement.id === "preview" &&
+                    !cover.classList.contains("on")
+                    ? "-1"
+                    : "0",
+                );
+                if (cover.parentElement.id === "preview")
+                  cover.setAttribute(
+                    "aria-hidden",
+                    String(!cover.classList.contains("on")),
+                  );
+                cover.setAttribute(
+                  "aria-label",
+                  `Perbesar gambar proyek ${project.title}`,
+                );
                 const ratio = `${image.naturalWidth} / ${image.naturalHeight}`;
                 cover.style.setProperty("--cover-ratio", ratio);
                 const mobileFrame = cover.closest(".m-cover");
@@ -178,9 +201,13 @@ document.documentElement.classList.add("js");
         const covers = [...byId("preview").children];
         const activate = (index) => {
           rows.forEach((row, i) => row.classList.toggle("on", i === index));
-          covers.forEach((cover, i) =>
-            cover.classList.toggle("on", i === index),
-          );
+          covers.forEach((cover, i) => {
+            const active = i === index;
+            cover.classList.toggle("on", active);
+            cover.tabIndex =
+              active && cover.classList.contains("has-img") ? 0 : -1;
+            cover.setAttribute("aria-hidden", String(!active));
+          });
           byId("preview").style.aspectRatio =
             covers[index].style.getPropertyValue("--cover-ratio") || "4 / 5";
         };
@@ -188,6 +215,72 @@ document.documentElement.classList.add("js");
           row.addEventListener("pointerenter", () => activate(index));
           row.addEventListener("focus", () => activate(index));
         });
+      };
+
+      const bindImageZoom = () => {
+        const dialog = byId("image-dialog");
+        const dialogImage = byId("image-dialog-image");
+        const zoomLevel = byId("image-zoom-level");
+        const zoomOut = byId("image-zoom-out");
+        const zoomIn = byId("image-zoom-in");
+        let zoom = 1;
+
+        const setZoom = (value) => {
+          zoom = Math.min(Math.max(value, 1), 4);
+          dialogImage.style.transform = `scale(${zoom})`;
+          dialogImage.classList.toggle("zoomed", zoom > 1);
+          zoomLevel.value = `${Math.round(zoom * 100)}%`;
+          zoomOut.disabled = zoom === 1;
+          zoomIn.disabled = zoom === 4;
+        };
+
+        const activateCover = (event) => {
+          if (
+            event.type === "keydown" &&
+            event.key !== "Enter" &&
+            event.key !== " "
+          )
+            return;
+          const cover = event.target.closest(".cover");
+          if (
+            !cover ||
+            !event.currentTarget.contains(cover) ||
+            !cover.classList.contains("has-img")
+          )
+            return;
+          if (event.type === "keydown") event.preventDefault();
+          const image = cover.querySelector("img");
+          if (!image) return;
+          byId("image-dialog-title").textContent = image.alt;
+          dialogImage.src = image.src;
+          dialogImage.alt = image.alt;
+          setZoom(1);
+          dialog.showModal();
+        };
+
+        [byId("preview"), byId("projects")].forEach((container) => {
+          container.addEventListener("click", activateCover);
+          container.addEventListener("keydown", activateCover);
+        });
+        byId("image-dialog-close").addEventListener("click", () =>
+          dialog.close(),
+        );
+        zoomOut.addEventListener("click", () => setZoom(zoom - 0.5));
+        zoomIn.addEventListener("click", () => setZoom(zoom + 0.5));
+        byId("image-zoom-reset").addEventListener("click", () => setZoom(1));
+        dialogImage.addEventListener("click", () =>
+          setZoom(zoom === 1 ? 2 : 1),
+        );
+        dialog.addEventListener("keydown", (event) => {
+          if (event.key !== "Escape") return;
+          event.preventDefault();
+          dialog.close();
+        });
+        dialog.addEventListener("click", (event) => {
+          if (event.target === dialog) dialog.close();
+        });
+        dialog.addEventListener("close", () => setZoom(1));
+        setZoom(1);
       };
 
       const renderPrinciples = () => {
@@ -316,6 +409,7 @@ document.documentElement.classList.add("js");
         renderContact();
         loadCoverImages();
         bindPreview();
+        bindImageZoom();
         bindReveal();
         bindMagnetic();
         bindProgress();

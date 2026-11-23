@@ -483,6 +483,17 @@ h2 {
   color: var(--muted);
 }
 
+.project-github {
+  display: inline-flex;
+  margin-top: var(--space-lg);
+  color: var(--muted);
+  transition: color 0.22s var(--ease);
+}
+
+.project-github:hover {
+  color: var(--accent);
+}
+
 .tags {
   display: flex;
   flex-wrap: wrap;
@@ -516,11 +527,13 @@ h2 {
   position: absolute;
   inset: 0;
   opacity: 0;
+  pointer-events: none;
   transition: opacity 0.7s var(--ease);
 }
 
 .preview .cover.on {
   opacity: 1;
+  pointer-events: auto;
 }
 
 .cover {
@@ -550,6 +563,94 @@ h2 {
 
 .cover.has-img .tag {
   display: none;
+}
+
+.preview .cover.has-img,
+.m-cover .cover.has-img {
+  cursor: zoom-in;
+}
+
+.image-dialog {
+  width: min(94vw, 1100px);
+  max-width: 94vw;
+  max-height: 94vh;
+  margin: auto;
+  padding: var(--space-md);
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.image-dialog::backdrop {
+  background: rgb(0 0 0 / 0.78);
+}
+
+.image-dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.image-dialog-title {
+  min-width: 0;
+  font-size: clamp(20px, 3vw, 30px);
+  overflow-wrap: anywhere;
+}
+
+.image-dialog-stage {
+  display: grid;
+  place-items: center;
+  max-height: 76vh;
+  margin: var(--space-md) 0;
+  overflow: auto;
+}
+
+.image-dialog-image {
+  display: block;
+  max-width: 100%;
+  max-height: 74vh;
+  width: auto;
+  height: auto;
+  cursor: zoom-in;
+  transform-origin: center;
+  transition: transform 0.2s var(--ease);
+}
+
+.image-dialog-image.zoomed {
+  cursor: zoom-out;
+}
+
+.image-dialog-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
+.image-dialog-close,
+.image-dialog-controls button {
+  min-height: 40px;
+  padding: 0 var(--space-sm);
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--ink);
+  font: 500 14px var(--sans);
+  cursor: pointer;
+}
+
+.image-dialog-close:hover,
+.image-dialog-controls button:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.image-dialog-controls button:disabled {
+  color: var(--muted);
+  cursor: default;
+  opacity: 0.55;
 }
 
 .pat0 {
