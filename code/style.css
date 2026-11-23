@@ -267,7 +267,7 @@ nav a:active {
   inset: 0 0 0 auto;
   z-index: 0;
   display: grid;
-  width: 36%;
+  width: 48%;
   place-items: center;
   pointer-events: none;
 }

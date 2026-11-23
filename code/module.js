@@ -1,6 +1,7 @@
 const root = document.documentElement;
 const canvas = document.getElementById("scene");
 const hero = document.querySelector(".hero");
+const meta = document.querySelector(".meta");
 const capability = matchMedia(
   "(min-width: 901px) and (hover: hover) and (pointer: fine)",
 );
@@ -285,9 +286,36 @@ const mount = async () => {
       2 *
       camera.position.z *
       Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
-    fitGroup.scale.setScalar(
+    const canvasBounds = canvas.getBoundingClientRect();
+    const metaBounds = meta.getBoundingClientRect();
+    const targetX = metaBounds.left + metaBounds.width / 2;
+    const gap = 16;
+    const availableRadius = Math.max(
+      0,
+      Math.min(
+        (metaBounds.top - canvasBounds.top) / 2 - gap,
+        targetX - canvasBounds.left - gap,
+        canvasBounds.right - targetX - gap,
+      ),
+    );
+    const baseScale =
       Math.min(0.7 * visibleHeight, 0.7 * visibleHeight * camera.aspect) /
-      5.2,
+      5.2;
+    const fitScale = Math.min(
+      baseScale,
+      (availableRadius * visibleHeight) / (3.3 * canvasBounds.height),
+    );
+    fitGroup.scale.setScalar(fitScale);
+    const objectRadius =
+      (3.3 * fitGroup.scale.x * canvasBounds.height) / visibleHeight;
+    const targetY = metaBounds.top - objectRadius - gap;
+    const ndcX = ((targetX - canvasBounds.left) / canvasBounds.width) * 2 - 1;
+    const ndcY = 1 - ((targetY - canvasBounds.top) / canvasBounds.height) * 2;
+    const viewWidth = visibleHeight * camera.aspect;
+    pivot.position.set(
+      (ndcX * viewWidth) / (2 * fitGroup.scale.x),
+      (ndcY * visibleHeight) / (2 * fitGroup.scale.y),
+      0,
     );
   };
 
@@ -354,8 +382,6 @@ const mount = async () => {
       -0.4 + state.x * 0.3,
       0,
     );
-    pivot.position.set(-0.85 + state.x * 0.08, 1.1 - state.scroll * 0.1, 0);
-
     renderer.render(scene, camera);
     if (!revealed) {
       revealed = true;
@@ -454,6 +480,7 @@ const mount = async () => {
   canvas.addEventListener("webglcontextlost", onContextLost);
   canvas.addEventListener("webglcontextrestored", onContextRestored);
   sizing.observe(canvas);
+  sizing.observe(meta);
   visibility.observe(hero);
   resize();
   onScroll();
