@@ -476,6 +476,11 @@ const mount = async () => {
   addEventListener("resize", onCapabilityChange, { passive: true });
   document.addEventListener("visibilitychange", onVisibilityChange);
   colorScheme.addEventListener("change", updateColors);
+  const themeObserver = new MutationObserver(updateColors);
+  themeObserver.observe(root, {
+    attributes: true,
+    attributeFilter: ["data-theme"],
+  });
   capability.addEventListener("change", onCapabilityChange);
   reducedMotion.addEventListener("change", onCapabilityChange);
   canvas.addEventListener("webglcontextlost", onContextLost);

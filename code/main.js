@@ -402,11 +402,43 @@ document.documentElement.classList.add("js");
         update();
       };
 
+      const bindTheme = () => {
+        const toggle = byId("theme-toggle");
+        if (!toggle) return;
+
+        const applyTheme = (theme) => {
+          document.documentElement.dataset.theme = theme;
+          toggle.setAttribute(
+            "aria-label",
+            theme === "dark"
+              ? "Aktifkan mode terang"
+              : "Aktifkan mode gelap",
+          );
+          toggle.setAttribute(
+            "title",
+            theme === "dark" ? "Gunakan mode terang" : "Gunakan mode gelap",
+          );
+        };
+
+        applyTheme(document.documentElement.dataset.theme || "light");
+        toggle.addEventListener("click", () => {
+          const next =
+            document.documentElement.dataset.theme === "dark"
+              ? "light"
+              : "dark";
+          applyTheme(next);
+          try {
+            localStorage.setItem("portfolio-theme", next);
+          } catch {}
+        });
+      };
+
       const init = () => {
         renderProjects();
         renderPrinciples();
         renderFocus();
         renderContact();
+        bindTheme();
         loadCoverImages();
         bindPreview();
         bindImageZoom();

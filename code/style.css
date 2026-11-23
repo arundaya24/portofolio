@@ -26,7 +26,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]) {
     --bg: oklch(18% 0.01 145);
     --surface: oklch(22% 0.012 145);
     --ink: oklch(92% 0.008 145);
@@ -36,6 +36,30 @@
     --accent: oklch(74% 0.11 158);
     color-scheme: dark;
   }
+}
+
+:root[data-theme="light"] {
+  --bg: oklch(97% 0.008 145);
+  --surface: oklch(99% 0.004 145);
+  --ink: oklch(22% 0.012 145);
+  --muted: oklch(52% 0.014 145);
+  --line: oklch(88% 0.012 145);
+  --line-strong: oklch(77% 0.016 145);
+  --accent: oklch(48% 0.12 158);
+  --shine: oklch(98% 0.01 145 / 0.22);
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --bg: oklch(18% 0.01 145);
+  --surface: oklch(22% 0.012 145);
+  --ink: oklch(92% 0.008 145);
+  --muted: oklch(68% 0.012 145);
+  --line: oklch(31% 0.012 145);
+  --line-strong: oklch(42% 0.014 145);
+  --accent: oklch(74% 0.11 158);
+  --shine: oklch(98% 0.01 145 / 0.22);
+  color-scheme: dark;
 }
 
 * {
@@ -57,6 +81,7 @@ body {
   font-synthesis: none;
   text-align: left;
   overflow-x: clip;
+  transition: background-color 0.35s var(--ease), color 0.35s var(--ease);
 }
 
 a {
@@ -163,6 +188,53 @@ nav a:hover::after {
 
 nav a:active {
   transform: scale(0.95);
+}
+
+.header-actions,
+.theme-toggle {
+  flex: none;
+}
+
+.theme-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-left: var(--space-xs);
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    border-color 0.22s var(--ease),
+    color 0.22s var(--ease),
+    transform 0.22s var(--ease);
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.theme-toggle:active {
+  transform: scale(0.92);
+}
+
+.theme-icon {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+:root[data-theme="light"] .theme-icon-moon,
+:root[data-theme="dark"] .theme-icon-sun {
+  display: none;
 }
 
 .progress {

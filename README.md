@@ -10,6 +10,7 @@ Situs portofolio pribadi untuk menampilkan profil, pendekatan dalam membangun so
 - Preview gambar dapat dibuka dalam ukuran besar dan diperbesar dengan kontrol zoom.
 - Tautan menuju repositori GitHub pada setiap proyek.
 - Animasi antarmuka yang menghormati preferensi reduced motion.
+- Pilihan mode terang dan gelap yang tersimpan di browser.
 
 ## Teknologi
 
