@@ -232,8 +232,8 @@ nav a:active {
   stroke-linejoin: round;
 }
 
-:root[data-theme="light"] .theme-icon-moon,
-:root[data-theme="dark"] .theme-icon-sun {
+:root[data-theme="light"] .theme-icon-sun,
+:root[data-theme="dark"] .theme-icon-moon {
   display: none;
 }
 

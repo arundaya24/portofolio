@@ -442,6 +442,7 @@ const mount = async () => {
     if (destroyed) return;
     destroyed = true;
     pause();
+    themeObserver.disconnect();
     visibility.disconnect();
     sizing.disconnect();
     hero.removeEventListener("pointermove", onPointer);
